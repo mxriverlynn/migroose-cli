@@ -4,6 +4,8 @@ var minimist = require("minimist");
 var fs = require("fs");
 var _ = require("underscore");
 
+var FOLDER = "./mongrations"
+
 // Main Processing
 // ---------------
 
@@ -15,8 +17,40 @@ if (args._.length > 0) {
   runMigrations();
 }
 
+function isJSFile(file){
+  var index = file.indexOf(".js");
+  var location = file.length - 3;
+  return (index === location)
+}
+
 function runMigrations(){
-  console.log("running migrations");
+  var folder = FOLDER + "/";
+
+  var migrations = [];
+
+  fs.readdirSync(folder).forEach(function(file){
+    if (!isJSFile(file)){ return; }
+
+    var migration = require(folder + file);
+    migrations.push(migration);
+  });
+
+  var connector = require("./mongrate.js");
+
+  connector.connect(function(){
+    doMigration(migrations);
+  });
+}
+
+function doMigration(migrations){
+  var migration = migrations.pop();
+  if (!migration) { return; }
+
+  migration.migrate(function(err){
+    if (err) { throw err; }
+
+    doMigration(migrations);
+  });
 }
 
 function createMigration(args){
@@ -25,18 +59,18 @@ function createMigration(args){
   var descriptor = timestamp.toString() + "-" + slug;
   var filename = descriptor + ".js";
 
-  var exists = fs.existsSync("./migrations");
+  var exists = fs.existsSync(FOLDER);
   if (!exists) {
-    fs.mkdirSync("./migrations");
+    fs.mkdirSync(FOLDER);
   }
   
   var fileContent = "var Mongrate = require('mongrate');\r\nvar migration = new Mongrate.Migration('" + descriptor + "');\r\n";
 
-  fs.writeFile("./migrations/" + filename, fileContent, function(err) {
+  fs.writeFile(FOLDER + "/" + filename, fileContent, function(err) {
     if(err) {
       console.log(err);
     } else {
-      console.log("Migration created at:", "./migrations/" + filename);
+      console.log("Migration created at:", FOLDER + "/" + filename);
     }
   }); 
 }
