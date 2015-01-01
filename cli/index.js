@@ -1,3 +1,5 @@
+#!/usr/bin/node
+
 var minimist = require("minimist");
 var fs = require("fs");
 var _ = require("underscore");
