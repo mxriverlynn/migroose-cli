@@ -1,4 +1,4 @@
-#!/usr/bin/node
+#!/usr/bin/env node
 
 var minimist = require("minimist");
 var fs = require("fs");
