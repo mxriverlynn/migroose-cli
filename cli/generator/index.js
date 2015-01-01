@@ -12,10 +12,10 @@ function Generator(cwd, migrationFolder){
 // Instance Methods
 // ----------------
 
-Generator.prototype.generate = function(name){
+Generator.prototype.generate = function(name, cb){
   var config = this.getConfig(name);
   var content = this.generateFileContent(config);
-  this.writeFile(content, config);
+  this.writeFile(content, config, cb);
 };
 
 // Private Methods
@@ -41,7 +41,7 @@ Generator.prototype.getConfig = function(name){
   return config;
 };
 
-Generator.prototype.generateFileContents = function(config){
+Generator.prototype.generateFileContent = function(config){
   var content = "";
 
   content += "var Mongrate = require('mongrate');\r\n";

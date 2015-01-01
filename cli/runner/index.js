@@ -13,11 +13,13 @@ function Runner(cwd, migrationFolder){
 // ----------------
 
 Runner.prototype.run = function(cb){
+  var that = this;
+
   var migrations = this.getMigrations();
   if (migrations.length === 0){ return; }
 
   this.openConnection(function(){
-    doMigrations(migrations, cb);
+    that.doMigrations(migrations, cb);
   });
 };
 
@@ -25,13 +27,15 @@ Runner.prototype.run = function(cb){
 // ---------------
 
 Runner.prototype.getMigrations = function(){
+  var cwd = this.cwd;
   var migrations = [];
 
   var folder = path.join(this.cwd, this.migrationFolder);
   fs.readdirSync(folder).forEach(function(file){
     if (!isJSFile(file)){ return; }
 
-    var migration = require(path.join(cwd, folder, file));
+    var migrationFile = path.join(folder, file);
+    var migration = require(migrationFile);
     migrations.push(migration);
   });
 
@@ -44,7 +48,7 @@ Runner.prototype.openConnection = function(cb){
   connector.connect(cb);
 };
 
-Runner.prototype.doMigration = function(migrations, cb){
+Runner.prototype.doMigrations = function(migrations, cb){
   var that = this;
 
   var migration = migrations.shift();
@@ -54,7 +58,7 @@ Runner.prototype.doMigration = function(migrations, cb){
     if (err) { throw err; }
 
     setImmediate(function(){
-      that.doMigration(migrations, cb);
+      that.doMigrations(migrations, cb);
     });
   });
 };

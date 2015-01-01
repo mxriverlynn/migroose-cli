@@ -14,7 +14,7 @@ var args = minimist(process.argv.slice(2));
 var cwd = process.cwd();
 
 if (args._.length > 0) {
-  generateMigrations(args);
+  generateMigration(args);
 } else {
   runMigrations();
 }
