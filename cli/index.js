@@ -2,6 +2,7 @@
 
 var minimist = require("minimist");
 var fs = require("fs");
+var path = require("path");
 var _ = require("underscore");
 
 var FOLDER = "./mongrations"
@@ -24,20 +25,20 @@ function isJSFile(file){
 }
 
 function runMigrations(){
-  var folder = FOLDER + "/";
+  var folder = path.join(FOLDER, "/");
 
   var migrations = [];
 
-  console.log(process.cwd());
+  var cwd = path.join(process.cwd(), "/");
 
   fs.readdirSync(folder).forEach(function(file){
     if (!isJSFile(file)){ return; }
 
-    var migration = require(folder + file);
+    var migration = require(path.join(cwd, folder, file));
     migrations.push(migration);
   });
 
-  var connector = require("./mongrate.js");
+  var connector = require(path.join(cwd, "mongrate.js"));
 
   connector.connect(function(){
     doMigration(migrations);
