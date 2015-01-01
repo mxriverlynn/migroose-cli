@@ -41,18 +41,22 @@ function runMigrations(){
   var connector = require(path.join(cwd, "mongrate.js"));
 
   connector.connect(function(){
-    doMigration(migrations);
+    doMigration(migrations, function(){
+      process.exit();
+    });
   });
 }
 
-function doMigration(migrations){
+function doMigration(migrations, cb){
   var migration = migrations.pop();
-  if (!migration) { return; }
+  if (!migration) { return cb(); }
 
   migration.migrate(function(err){
     if (err) { throw err; }
 
-    doMigration(migrations);
+    setImmediate(function(){
+      doMigration(migrations, cb);
+    });
   });
 }
 
