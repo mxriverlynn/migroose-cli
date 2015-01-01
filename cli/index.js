@@ -71,7 +71,7 @@ function createMigration(args){
     fs.mkdirSync(FOLDER);
   }
   
-  var fileContent = "var Mongrate = require('mongrate');\r\nvar migration = new Mongrate.Migration('" + descriptor + "');\r\n";
+  var fileContent = "var Mongrate = require('mongrate');\r\nvar migration = new Mongrate.Migration('" + descriptor + "');\r\n\r\nmigration.step(function(data, stepComplete){\r\n  console.log('do some work');\r\n});\r\n\r\nmodule.exports = migration;";
 
   fs.writeFile(FOLDER + "/" + filename, fileContent, function(err) {
     if(err) {
