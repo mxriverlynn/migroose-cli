@@ -1,6 +1,6 @@
 {
   "name": "mongrate-cli",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "command line tooling for mongrate, the mongodb/mongoosejs migration framework",
   "main": "cli/index.js",
   "bin": {
