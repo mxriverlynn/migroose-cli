@@ -4,54 +4,70 @@ Command line tooling for the [mongrate migration framework](/derickbailey/mongra
 
 ## Get Started
 
-Install it globally
+You will need both [mongrate](/derickbailey/mongrate) and
+the mongrate-cli tool. Mongrate should be installed in the
+project, while the cli tool should be installed globally.
 
 ```
+npm install mongrate
 npm install -g mongrate-cli
 ```
+
+Now you can use the cli tool to generate a migration and
+run migrations.
 
 ### Generate A Migration
 
 Use the command line to generate a migration file.
 
 ```
-mongrate "example migration"
+mongrate "some example migration"
 ```
 
-This will produce a `mongrations/##########-example-migration.js` file
+This will produce a `mongrations/##########-some-example-migration.js` file
 where "#########" is a timestamp.
 
-### Connection To Your MongoDB Database
+See the [mongrate docmentation](/derickbailey/mongrate) for information on how
+to write a mongrate migration script. 
 
-To run your migrations, you need to provide a connection to 
-a MongoDB instance using a `mongrate.js` file in your project.
+### Connect Mongrate To Your MongoDB Database
 
-0. create a mongrate.js file
-0. export a `connect` function that opens your database connection
+Before you can run you migrations, you need to provide a
+connection to your MongoDB database. This only has to be done
+once per project, but it must be done before the migrations 
+can run.
+
+Create a `mongrate.js` file in your project folder, and
+have it export a `connect` function. This function receives
+one callback argument that you must call once your database
+connection has been established.
 
 ```js
-// mongrate.js
+// my-project/mongrate.js
 
 var mongoose = require("mongoose");
 
 module.exports = {
+
+  // provide a connection to my mongodb instance
   connect: function(cb){
+
     var conn = "mongodb://localhost:27017/some-database";
     mongoose.connect(conn, function(err){
       if (err) { throw err; }
+
+      // now that i'm connected, i can tell mongrate to run
       cb();
     });
+
   }
 };
 ```
 
-Having written this complete script, you can now run the mongrate
+Having written this connector, you can now use the mongrate
 command line to run your migrations.
 
 ### Run Migrations
-
-See the [mongrate docmentation](/derickbailey/mongrate) for information on how
-to write a mongrate migration script. 
 
 Once you have completed your migraiton script, you can run them with the command
 line.
