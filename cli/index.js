@@ -48,7 +48,7 @@ function runMigrations(){
 }
 
 function doMigration(migrations, cb){
-  var migration = migrations.pop();
+  var migration = migrations.shift();
   if (!migration) { return cb(); }
 
   migration.migrate(function(err){
