@@ -4,7 +4,7 @@ Command line tooling for the [mongrate migration framework](/derickbailey/mongra
 
 ## Get Started
 
-You will need both [mongrate](/derickbailey/mongrate) and
+You will need both [mongrate](derickbailey/mongrate) and
 the mongrate-cli tool. Mongrate should be installed in the
 project, while the cli tool should be installed globally.
 
@@ -27,7 +27,7 @@ mongrate "some example migration"
 This will produce a `mongrations/##########-some-example-migration.js` file
 where "#########" is a timestamp.
 
-See the [mongrate docmentation](/derickbailey/mongrate) for information on how
+See the [mongrate docmentation](derickbailey/mongrate) for information on how
 to write a mongrate migration script. 
 
 ### Connect Mongrate To Your MongoDB Database
