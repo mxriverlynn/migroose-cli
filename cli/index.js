@@ -28,6 +28,8 @@ function runMigrations(){
 
   var migrations = [];
 
+  console.log(process.cwd());
+
   fs.readdirSync(folder).forEach(function(file){
     if (!isJSFile(file)){ return; }
 
