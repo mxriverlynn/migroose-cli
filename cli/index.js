@@ -10,6 +10,16 @@ var _ = require("underscore");
 var args = minimist(process.argv.slice(2));
 
 if (args._.length > 0) {
+  createMigration(args);
+} else {
+  runMigrations();
+}
+
+function runMigrations(){
+  console.log("running migrations");
+}
+
+function createMigration(args){
   var timestamp = Date.now();
   var slug = getSlug(args._.join(" "));
   var descriptor = timestamp.toString() + "-" + slug;
@@ -23,11 +33,11 @@ if (args._.length > 0) {
   var fileContent = "var Mongrate = require('mongrate');\r\nvar migration = new Mongrate.Migration('" + descriptor + "');\r\n";
 
   fs.writeFile("./migrations/" + filename, fileContent, function(err) {
-      if(err) {
-          console.log(err);
-      } else {
-          console.log("The file was saved!");
-      }
+    if(err) {
+      console.log(err);
+    } else {
+      console.log("Migration created at:", "./migrations/" + filename);
+    }
   }); 
 }
 
