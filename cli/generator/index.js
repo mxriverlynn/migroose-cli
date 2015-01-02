@@ -44,8 +44,8 @@ Generator.prototype.getConfig = function(name){
 Generator.prototype.generateFileContent = function(config){
   var content = "";
 
-  content += "var Mongrate = require('mongrate');\r\n";
-  content += "var migration = new Mongrate.Migration('" + config.descriptor + "');\r\n\r\n";
+  content += "var Migroose = require('migroose');\r\n";
+  content += "var migration = new Migroose.Migration('" + config.descriptor + "');\r\n\r\n";
   content += "migration.step(function(data, stepComplete){\r\n";
   content += "  console.log('do some work');\r\n";
   content += "  stepComplete();\r\n";

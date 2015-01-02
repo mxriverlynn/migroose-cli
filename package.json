@@ -1,20 +1,20 @@
 {
-  "name": "mongrate-cli",
+  "name": "migroose-cli",
   "version": "0.0.2",
-  "description": "command line tooling for mongrate, the mongodb/mongoosejs migration framework",
+  "description": "command line tooling for migroose, the mongodb/mongoosejs migration framework",
   "main": "cli/index.js",
   "bin": {
-    "mongrate": "cli/index.js"
+    "migroose": "cli/index.js"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/derickbailey/mongrate-cli"
+    "url": "https://github.com/derickbailey/migroose-cli"
   },
   "keywords": [
-    "mongrate",
+    "migroose",
     "mongodb",
     "command",
     "line",
@@ -24,9 +24,9 @@
   "author": "Derick Bailey",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/derickbailey/mongrate-cli/issues"
+    "url": "https://github.com/derickbailey/migroose-cli/issues"
   },
-  "homepage": "https://github.com/derickbailey/mongrate-cli",
+  "homepage": "https://github.com/derickbailey/migroose-cli",
   "dependencies": {
     "minimist": "^1.1.0"
   }

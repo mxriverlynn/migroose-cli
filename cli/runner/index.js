@@ -43,8 +43,8 @@ Runner.prototype.getMigrations = function(){
 };
 
 Runner.prototype.openConnection = function(cb){
-  var mongrateFile = path.join(this.cwd, "mongrate.js");
-  var connector = require(mongrateFile);
+  var migrooseFile = path.join(this.cwd, "migroose.js");
+  var connector = require(migrooseFile);
   connector.connect(cb);
 };
 

@@ -5,7 +5,7 @@ var minimist = require("minimist");
 var Generator = require("./generator");
 var Runner = require("./runner");
 
-var FOLDER = "mongrations"
+var FOLDER = "migrootions"
 
 // Main Processing
 // ---------------
