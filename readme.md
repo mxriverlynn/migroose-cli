@@ -37,13 +37,13 @@ connection to your MongoDB database. This only has to be done
 once per project, but it must be done before the migrations 
 can run.
 
-Create a `migroose.js` file in your project folder, and
+Create a `migroose-connector.js` file in your project folder, and
 have it export a `connect` function. This function receives
 one callback argument that you must call once your database
 connection has been established.
 
 ```js
-// my-project/migroose.js
+// my-project/migroose-connector.js
 
 var mongoose = require("mongoose");
 
