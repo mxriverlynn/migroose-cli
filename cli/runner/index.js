@@ -43,7 +43,7 @@ Runner.prototype.getMigrations = function(){
 };
 
 Runner.prototype.openConnection = function(cb){
-  var migrooseFile = path.join(this.cwd, "migroose.js");
+  var migrooseFile = path.join(this.cwd, "migroose-connector.js");
   var connector = require(migrooseFile);
   connector.connect(cb);
 };
